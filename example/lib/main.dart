@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:package_info/package_info.dart';
 import 'package:umeng/umeng.dart';
 
 void main() {
@@ -19,7 +20,17 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    getVersionName();
+    initUmeng();
     initPlatformState();
+  }
+  void getVersionName()async{
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    print("version: ${info.version}");
+  }
+  void initUmeng()async{
+    //TODO
+    await Umeng.init(androidKey: "androidKey", iosKey: "iosKey",onlineParamEnabled: true);
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -50,9 +61,17 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: GestureDetector(
+            onTap: getOnlineParam,
+            child: Text('Running on: $_platformVersion\n'),
+          ),
         ),
       ),
     );
+  }
+  void getOnlineParam()async{
+    //TODO
+    String onlineParam = await Umeng.getOnlineParam("onlineParam");
+    print("onlineParam: $onlineParam");
   }
 }

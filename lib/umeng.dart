@@ -1,6 +1,5 @@
 
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +15,7 @@ class Umeng {
     @required String androidKey,
     @required String iosKey,
     String channel,
+    bool onlineParamEnabled = false,
     bool logEnabled = false,
     bool encryptEnabled = false,
     int sessionContinueMillis = 30000,
@@ -27,6 +27,7 @@ class Umeng {
       'androidKey': androidKey,
       'iosKey': iosKey,
       'channel': channel,
+      'onlineParamEnabled': onlineParamEnabled,
       'logEnabled': logEnabled,
       'encryptEnabled': encryptEnabled,
       'sessionContinueMillis': sessionContinueMillis,
@@ -71,5 +72,11 @@ class Umeng {
       'type': type,
     };
     return _channel.invokeMethod<bool>('uploadLog',map);
+  }
+  static Future<String> getOnlineParam(String key){
+    Map<String, dynamic> map = {
+      'key': key,
+    };
+    return _channel.invokeMethod<String>('getOnlineParam',map);
   }
 }

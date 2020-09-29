@@ -1,6 +1,12 @@
 #import "UmengPlugin.h"
 #import <UMCommon/UMCommon.h>
 #import <UMCommon/MobClick.h>
+#import <UMCommon/UMRemoteConfig.h>
+#import <UMCommon/UMRemoteConfigSettings.h>
+
+@interface UmengPlugin ()<UMRemoteConfigDelegate>
+
+@end
 
 @implementation UmengPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -24,6 +30,10 @@
       [self onProfileSignIn:call result:result];
   }else if([@"onProfileSignOff" isEqualToString:call.method]){
       [self onProfileSignOff:call result:result];
+  }else if([@"getOnlineParam" isEqualToString:call.method]){
+      [self getOnlineParam:call result:result];
+  }else if ([@"getPlatformVersion" isEqualToString:call.method]) {
+    result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
   }else {
     result(FlutterMethodNotImplemented);
   }
@@ -39,6 +49,13 @@
     }
     [UMConfigure setLogEnabled:call.arguments[@"logEnabled"]];
     [UMConfigure setEncryptEnabled:call.arguments[@"encryptEnabled"]];
+    
+    BOOL onlineParamEnabled = call.arguments[@"onlineParamEnabled"];
+    if(onlineParamEnabled == YES){
+        [UMRemoteConfig remoteConfig].remoteConfigDelegate = self;
+        [UMRemoteConfig remoteConfig].configSettings.activateAfterFetch = YES;
+    }
+    
     [UMConfigure initWithAppkey:call.arguments[@"iosKey"] channel:call.arguments[@"channel"]];
     result([NSNumber numberWithBool:YES]);
 }
@@ -62,6 +79,10 @@
 - (void)onProfileSignOff:(FlutterMethodCall*)call result:(FlutterResult)result{
     [MobClick profileSignOff];
     result([NSNumber numberWithBool:YES]);
+}
+
+- (void)getOnlineParam:(FlutterMethodCall*)call result:(FlutterResult)result{
+    result([UMRemoteConfig configValueForKey:call.arguments[@"key"]]);
 }
 
 @end
