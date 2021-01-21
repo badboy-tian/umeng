@@ -63,9 +63,7 @@ class UmengPlugin: FlutterPlugin, MethodCallHandler {
 
     val sessionContinueMillis = call.argument<Int>("sessionContinueMillis")
     MobclickAgent.setSessionContinueMillis(sessionContinueMillis?.toLong() ?: 30000)
-
-    val catchUncaughtExceptionsEnabled = call.argument<Boolean>("catchUncaughtExceptionsEnabled")
-    MobclickAgent.setCatchUncaughtExceptions(catchUncaughtExceptionsEnabled ?: true)
+    MobclickAgent.setCatchUncaughtExceptions(false)
 
     val pageCollectMode = call.argument<String>("pageCollectMode")
     if("MANUAL" == pageCollectMode){

@@ -40,7 +40,6 @@
 }
 
 - (void)init:(FlutterMethodCall*)call result:(FlutterResult)result{
-    [MobClick setCrashReportEnabled:call.arguments[@"catchUncaughtExceptionsEnabled"]];
     NSString* pageCollectMode = call.arguments[@"pageCollectMode"];
     if([@"MANUAL" isEqualToString:pageCollectMode]){
         [MobClick setAutoPageEnabled:NO];

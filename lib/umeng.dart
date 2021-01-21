@@ -15,7 +15,6 @@ class Umeng {
     bool logEnabled = false,
     bool encryptEnabled = false,
     int sessionContinueMillis = 30000,
-    bool catchUncaughtExceptionsEnabled = true,
     bool processEventEnabled = true,
     String pageCollectMode = "AUTO",
   }) async {
@@ -27,7 +26,6 @@ class Umeng {
       'logEnabled': logEnabled,
       'encryptEnabled': encryptEnabled,
       'sessionContinueMillis': sessionContinueMillis,
-      'catchUncaughtExceptionsEnabled': catchUncaughtExceptionsEnabled,
       'processEventEnabled': processEventEnabled,
       'pageCollectMode': pageCollectMode,
     };
