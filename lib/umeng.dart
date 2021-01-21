@@ -7,10 +7,6 @@ class Umeng {
   static const MethodChannel _channel =
       const MethodChannel('kaige.com/umeng_analytics');
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
   static Future<bool> init({
     @required String androidKey,
     @required String iosKey,
@@ -66,12 +62,9 @@ class Umeng {
   static Future<bool> onProfileSignOff(){
     return _channel.invokeMethod<bool>('onProfileSignOff');
   }
-  static Future<bool> uploadLog(String error, String type){
-    Map<String, dynamic> map = {
-      'error': error,
-      'type': type,
-    };
-    return _channel.invokeMethod<bool>('uploadLog',map);
+  static Future<String> get platformVersion async {
+    final String version = await _channel.invokeMethod('getPlatformVersion');
+    return version;
   }
   static Future<String> getOnlineParam(String key){
     Map<String, dynamic> map = {

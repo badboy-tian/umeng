@@ -7,7 +7,6 @@ import com.umeng.analytics.MobclickAgent
 import com.umeng.cconfig.RemoteConfigSettings
 import com.umeng.cconfig.UMRemoteConfig
 import com.umeng.commonsdk.UMConfigure
-import com.umeng.umcrash.UMCrash
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -36,7 +35,6 @@ class UmengPlugin: FlutterPlugin, MethodCallHandler {
       "pageStart" -> pageStart(call, result)
       "pageEnd" -> pageEnd(call, result)
       "onEvent" -> onEvent(call, result)
-      "uploadLog" -> uploadLog(call, result)
       "onProfileSignIn" -> onProfileSignIn(call, result)
       "onProfileSignOff" -> onProfileSignOff(call, result)
       "getOnlineParam" -> getOnlineParam(call, result)
@@ -94,13 +92,6 @@ class UmengPlugin: FlutterPlugin, MethodCallHandler {
     val eventId = call.argument<String>("eventId")
     val properties = call.argument<Map<String, Object>>("properties")
     MobclickAgent.onEventObject(context, eventId, properties)
-    result.success(true)
-  }
-
-  private fun uploadLog(call: MethodCall, result: Result) {
-    val error = call.argument<String>("error")
-    val type = call.argument<String>("type")
-    UMCrash.generateCustomLog(error, type)
     result.success(true)
   }
 

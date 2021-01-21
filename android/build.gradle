@@ -57,5 +57,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation  'com.umeng.umsdk:common:9.3.3' // (必选)
     implementation  'com.umeng.umsdk:asms:1.1.4' // asms包依赖(必选)
-    implementation  'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
 }
