@@ -16,7 +16,7 @@ A new flutter plugin project.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'UMCCommon', '~>7.2.5'
+  s.dependency 'UMCCommon', '~>7.2.2'
   s.platform = :ios, '9.0'
   s.static_framework = true
 
